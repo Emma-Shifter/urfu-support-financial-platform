@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Электронная матпомощь</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; margin-bottom: 12px; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .page-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .sidebar > * + * {
+      margin-top: 20px;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      padding: 16px;
+    }
+
+    .status-steps,
+    .doc-list,
+    footer ul {
+      list-style: none;
+    }
+
+    .status-steps li,
+    .doc-list li {
+      margin-bottom: 10px;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 8px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .consent-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .form-actions button {
+      padding: 10px 20px;
+    }
+
+    footer {
+      border-top: 1px solid #ccc;
+      margin-top: 40px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    footer nav ul li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/">
+      <img src="logo-placeholder.svg" alt="Союз студентов УрФУ" />
+    </a>
+
+    <h1>Мои заявления</h1>
+
+    <a href="#">Выйти</a>
+  </header>
+
+  <div class="container page-layout">
+
+    <div class="sidebar">
+      <section class="card" aria-labelledby="status-heading">
+        <h2 id="status-heading">Статус заявления</h2>
+        <nav aria-label="Этапы рассмотрения заявления">
+          <ol class="status-steps">
+            <li>Заполнить форму</li>
+            <li aria-current="step">Прикрепить документы</li>
+            <li>Отправить заявление</li>
+            <li>Рассмотрение</li>
+            <li>Результат</li>
+          </ol>
+        </nav>
+      </section>
+
+      <aside class="card" aria-labelledby="docs-heading">
+        <h2 id="docs-heading">Перечень необходимых документов</h2>
+        <ul class="doc-list">
+          <li>Чек на демисезонную одежду с QR кодом</li>
+        </ul>
+      </aside>
+    </div>
+
+    <main>
+      <section class="card" aria-labelledby="form-heading">
+        <h2 id="form-heading">Заявление на прием материальной помощи</h2>
+
+        <form novalidate>
+          <div class="form-field">
+            <label for="reason">Перечень причин</label>
+            <select id="reason" name="reason" required>
+              <option value="" selected>Демисезонная одежда и обувь</option>
+              <option value="food">Дорогостоящее лечение</option>
+              <option value="medicine">Потеря кормильца</option>
+              <option value="other">Подача на Екарту</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="full-name">ФИО</label>
+            <input type="text" id="full-name" name="full-name" placeholder="Введите ваше ФИО" autocomplete="name" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="group">Группа</label>
+              <input type="text" id="group" name="group" placeholder="Укажите вашу группу через тире" required />
+            </div>
+
+            <div class="form-field">
+              <label for="age">Полных лет</label>
+              <input type="number" id="age" name="age" min="16" max="100" placeholder="Укажите ваш возраст" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" placeholder="Укажите ваш номер телефона" autocomplete="tel" required />
+            </div>
+
+            <div class="form-field">
+              <label for="income">Среднемесячный доход</label>
+              <input type="number" id="income" name="income" min="0" placeholder="Укажите вашу стипендию" required />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="documents">Загрузить документы</label>
+            <input type="file" id="documents" name="documents" accept=".pdf,.jpg,.jpeg,.png" multiple required aria-describedby="documents-hint" />
+            <p id="documents-hint">PDF, JPG или PNG, размер каждого файла до 20 МБ</p>
+          </div>
+
+          <div class="consent-field">
+            <input type="checkbox" id="consent" name="consent" required />
+            <label for="consent">Я подтверждаю, что согласен на обработку персональных данных</label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="save-draft">Сохранить в черновиках</button>
+            <button type="submit">Отправить заявление</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+  </div>
+
+  <footer class="container">
+    <p>© 2026 Профбюро (Союз студентов)<br />ИРИТ-РТФ УрФУ</p>
+
+    <nav>
+      <ul>
+        <li><a href="#">Пользовательское соглашение</a></li>
+        <li><a href="#">Обработка персональных данных</a></li>
+      </ul>
+    </nav>
+
+    <nav>
+      <ul>
+        <li><a href="#">Политика конфиденциальности</a></li>
+        <li><a href="#">Согласие на обработку ПДн</a></li>
+        <li><a href="#">Файлы cookie</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>
