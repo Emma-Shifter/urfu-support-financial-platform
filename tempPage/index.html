@@ -3,145 +3,371 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Электронная матпомощь</title>
+  <title>Мои заявления — Союз студентов УрФУ</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --color-primary: #1b3b74;
+      --color-primary-dark: #14294f;
+      --color-bg: #f2f3f5;
+      --color-card: #ffffff;
+      --color-border: #d9dde3;
+      --color-text: #1b2430;
+      --color-text-muted: #6b7380;
+      --radius: 10px;
+      --font-main: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
 
+    * { box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: var(--font-main);
+      background: var(--color-bg);
+      color: var(--color-text);
       line-height: 1.4;
     }
 
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.2rem; margin-bottom: 12px; }
+    a { color: inherit; }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    header {
+    /* ---------- Header ---------- */
+    .site-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px;
-      border-bottom: 1px solid #ccc;
+      gap: 24px;
+      padding: 16px 48px;
+      background: var(--color-card);
+      border-bottom: 1px solid var(--color-border);
     }
 
-    header img {
-      width: 40px;
-      height: 40px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--color-primary);
     }
 
+    .brand__name {
+      font-weight: 700;
+      line-height: 1.1;
+      font-size: 0.85rem;
+    }
+
+    .site-header h1 {
+      flex: 1;
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--color-primary);
+    }
+
+    .logout-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* ---------- Layout ---------- */
     .page-layout {
       display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      max-width: 1280px;
+      margin: 32px auto;
+      padding: 0 24px;
+      align-items: start;
     }
 
-    .sidebar > * + * {
-      margin-top: 20px;
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
     .card {
-      border: 1px solid #ccc;
-      padding: 16px;
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 24px;
     }
 
-    .status-steps,
-    .doc-list,
-    footer ul {
+    .card h2 {
+      margin-top: 0;
+      color: var(--color-primary);
+      font-size: 1.15rem;
+    }
+
+    /* ---------- Status steps ---------- */
+    .status-steps {
       list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
-    .status-steps li,
+    .status-steps li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--color-text-muted);
+    }
+
+    .status-steps .step-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .status-steps li[aria-current="step"] {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .status-steps li[aria-current="step"] .step-icon {
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    /* ---------- Required documents list ---------- */
+    .doc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .doc-list li {
-      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .doc-list .check-icon {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ---------- Form ---------- */
+    .application-form h2 {
+      margin-top: 0;
+      color: var(--color-primary);
+      font-size: 1.5rem;
     }
 
     .form-field {
-      margin-bottom: 16px;
-    }
-
-    .form-field label {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .form-field input,
-    .form-field select {
-      width: 100%;
-      padding: 8px;
+      margin-bottom: 20px;
     }
 
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-with-icon svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-muted);
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 12px 14px 12px 44px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fff;
+      color: var(--color-text);
+    }
+
+    .form-field select {
+      appearance: none;
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7380'%3E%3Cpath d='M5 7l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus {
+      outline: 3px solid #9db6e4;
+      outline-offset: 1px;
+      border-color: var(--color-primary);
     }
 
     .consent-field {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .consent-field input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex-shrink: 0;
     }
 
     .form-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 12px;
+      gap: 16px;
+      margin-top: 8px;
     }
 
-    .form-actions button {
-      padding: 10px 20px;
+    .button {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: 2px solid var(--color-primary);
     }
 
-    footer {
-      border-top: 1px solid #ccc;
-      margin-top: 40px;
-      padding: 20px;
+    .button--primary {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .button--primary:hover { background: var(--color-primary-dark); }
+
+    .button--secondary {
+      background: transparent;
+      color: var(--color-primary);
+    }
+
+    .button--secondary:hover { background: #eef2f8; }
+
+    .button:focus-visible {
+      outline: 3px solid #9db6e4;
+      outline-offset: 2px;
+    }
+
+    /* ---------- Footer ---------- */
+    .site-footer {
+      border-top: 1px solid var(--color-border);
+      background: var(--color-card);
+      padding: 32px 48px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
     }
 
-    footer nav ul li {
-      margin-bottom: 4px;
+    .site-footer nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .site-footer nav a {
+      text-decoration: none;
+    }
+
+    .site-footer nav a:hover { text-decoration: underline; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .site-header {
+        padding: 16px 20px;
+        flex-wrap: wrap;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .site-footer {
+        padding: 24px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <a href="/">
-      <img src="logo-placeholder.svg" alt="Союз студентов УрФУ" />
+  <header class="site-header">
+    <a class="brand" href="/">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2 L21 6 V12 C21 17 17 21 12 22 C7 21 3 17 3 12 V6 Z" stroke="#1b3b74" stroke-width="1.5" fill="none"/>
+        <path d="M8 12 L11 15 L16 9" stroke="#1b3b74" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__name">Союз<br />студентов<br />УрФУ</span>
     </a>
 
     <h1>Мои заявления</h1>
 
-    <a href="#">Выйти</a>
+    <a class="logout-link" href="/logout">
+      Выйти
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 3 H19 A2 2 0 0 1 21 5 V19 A2 2 0 0 1 19 21 H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 17 L15 12 L10 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15 12 H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </a>
   </header>
 
-  <div class="container page-layout">
+  <div class="page-layout">
 
     <div class="sidebar">
       <section class="card" aria-labelledby="status-heading">
         <h2 id="status-heading">Статус заявления</h2>
         <nav aria-label="Этапы рассмотрения заявления">
           <ol class="status-steps">
-            <li>Заполнить форму</li>
-            <li aria-current="step">Прикрепить документы</li>
-            <li>Отправить заявление</li>
-            <li>Рассмотрение</li>
-            <li>Результат</li>
+            <li>
+              <span class="step-icon" aria-hidden="true">✎</span>
+              Заполнить форму
+            </li>
+            <li aria-current="step">
+              <span class="step-icon" aria-hidden="true">⬇</span>
+              Прикрепить документы
+            </li>
+            <li>
+              <span class="step-icon" aria-hidden="true">✉</span>
+              Отправить заявление
+            </li>
+            <li>
+              <span class="step-icon" aria-hidden="true">◴</span>
+              Рассмотрение
+            </li>
+            <li>
+              <span class="step-icon" aria-hidden="true">✓</span>
+              Результат
+            </li>
           </ol>
         </nav>
       </section>
@@ -149,59 +375,108 @@
       <aside class="card" aria-labelledby="docs-heading">
         <h2 id="docs-heading">Перечень необходимых документов</h2>
         <ul class="doc-list">
-          <li>Чек на демисезонную одежду с QR кодом</li>
+          <li>
+            <span class="check-icon" aria-hidden="true">✓</span>
+            Чек на демисезонную одежду с QR кодом
+          </li>
         </ul>
       </aside>
     </div>
 
     <main>
-      <section class="card" aria-labelledby="form-heading">
+      <section class="card application-form" aria-labelledby="form-heading">
         <h2 id="form-heading">Заявление на прием материальной помощи</h2>
 
         <form novalidate>
           <div class="form-field">
             <label for="reason">Перечень причин</label>
-            <select id="reason" name="reason" required>
-              <option value="" selected>Демисезонная одежда и обувь</option>
-              <option value="food">Дорогостоящее лечение</option>
-              <option value="medicine">Потеря кормильца</option>
-              <option value="other">Подача на Екарту</option>
-            </select>
+            <div class="input-with-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2"/>
+                <path d="M15 15 L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <select id="reason" name="reason" required>
+                <option value="" selected>Демисезонная одежда и обувь</option>
+                <option value="food">Питание</option>
+                <option value="medicine">Лекарства и лечение</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-field">
             <label for="full-name">ФИО</label>
-            <input type="text" id="full-name" name="full-name" placeholder="Введите ваше ФИО" autocomplete="name" required />
+            <div class="input-with-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 20 C4 16 7.5 14 12 14 C16.5 14 20 16 20 20" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <input type="text" id="full-name" name="full-name" placeholder="Иванов Иван Иванович" autocomplete="name" required />
+            </div>
           </div>
 
           <div class="form-row">
             <div class="form-field">
               <label for="group">Группа</label>
-              <input type="text" id="group" name="group" placeholder="Укажите вашу группу через тире" required />
+              <div class="input-with-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="9" r="3" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="16" cy="9" r="3" stroke="currentColor" stroke-width="2"/>
+                  <path d="M2 20 C2 17 4.5 15 8 15 C9 15 10 15.2 10.8 15.6" stroke="currentColor" stroke-width="2"/>
+                  <path d="M13.2 15.6 C14 15.2 15 15 16 15 C19.5 15 22 17 22 20" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input type="text" id="group" name="group" placeholder="РИ-123456" required />
+              </div>
             </div>
 
             <div class="form-field">
               <label for="age">Полных лет</label>
-              <input type="number" id="age" name="age" min="16" max="100" placeholder="Укажите ваш возраст" required />
+              <div class="input-with-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 20 C4 16 7.5 14 12 14 C16.5 14 20 16 20 20" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input type="number" id="age" name="age" min="16" max="100" placeholder="20" required />
+              </div>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-field">
               <label for="phone">Телефон</label>
-              <input type="tel" id="phone" name="phone" placeholder="Укажите ваш номер телефона" autocomplete="tel" required />
+              <div class="input-with-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 4 H9 L11 9 L8.5 10.5 C9.5 13 11 14.5 13.5 15.5 L15 13 L20 15 V19 C20 20 19 21 18 21 C10 21 3 14 3 6 C3 5 4 4 5 4 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (987) 654-32-10" autocomplete="tel" required />
+              </div>
             </div>
 
             <div class="form-field">
               <label for="income">Среднемесячный доход</label>
-              <input type="number" id="income" name="income" min="0" placeholder="Укажите вашу стипендию" required />
+              <div class="input-with-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input type="number" id="income" name="income" min="0" placeholder="3200" required />
+              </div>
             </div>
           </div>
 
           <div class="form-field">
             <label for="documents">Загрузить документы</label>
-            <input type="file" id="documents" name="documents" accept=".pdf,.jpg,.jpeg,.png" multiple required aria-describedby="documents-hint" />
-            <p id="documents-hint">PDF, JPG или PNG, размер каждого файла до 20 МБ</p>
+            <div class="input-with-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 8 V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 11 L12 8 L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <input type="file" id="documents" name="documents" accept=".pdf,.jpg,.jpeg,.png" multiple required aria-describedby="documents-hint" />
+            </div>
+            <p id="documents-hint" style="color: var(--color-text-muted); font-size: 0.85rem; margin: 6px 0 0;">
+              PDF, JPG или PNG, размер каждого файла до 20 МБ
+            </p>
           </div>
 
           <div class="consent-field">
@@ -210,8 +485,12 @@
           </div>
 
           <div class="form-actions">
-            <button type="button" id="save-draft">Сохранить в черновиках</button>
-            <button type="submit">Отправить заявление</button>
+            <button type="button" class="button button--secondary" id="save-draft">
+              Сохранить в черновиках
+            </button>
+            <button type="submit" class="button button--primary">
+              Отправить заявление
+            </button>
           </div>
         </form>
       </section>
@@ -219,21 +498,21 @@
 
   </div>
 
-  <footer class="container">
+  <footer class="site-footer">
     <p>© 2026 Профбюро (Союз студентов)<br />ИРИТ-РТФ УрФУ</p>
 
-    <nav>
+    <nav aria-label="Документы о пользовательском соглашении">
       <ul>
-        <li><a href="#">Пользовательское соглашение</a></li>
-        <li><a href="#">Обработка персональных данных</a></li>
+        <li><a href="/agreement">Пользовательское соглашение</a></li>
+        <li><a href="/personal-data-processing">Обработка персональных данных</a></li>
       </ul>
     </nav>
 
-    <nav>
+    <nav aria-label="Документы о конфиденциальности">
       <ul>
-        <li><a href="#">Политика конфиденциальности</a></li>
-        <li><a href="#">Согласие на обработку ПДн</a></li>
-        <li><a href="#">Файлы cookie</a></li>
+        <li><a href="/privacy-policy">Политика конфиденциальности</a></li>
+        <li><a href="/personal-data-consent">Согласие на обработку ПДн</a></li>
+        <li><a href="/cookies">Файлы cookie</a></li>
       </ul>
     </nav>
   </footer>
