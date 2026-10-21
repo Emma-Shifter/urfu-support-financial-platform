@@ -143,11 +143,6 @@
     }).format(date);
 
   const showSuccessScreen = () => {
-    const now = new Date();
-
-    applicationNumber.textContent = generateApplicationNumber();
-    applicationDate.textContent = formatDate(now);
-
     form.closest('.application-form').hidden = true;
     successScreen.hidden = false;
 

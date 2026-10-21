@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Мои заявления — Союз студентов УрФУ</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -75,7 +75,8 @@
       <section class="card application-form" aria-labelledby="form-heading">
         <h2 id="form-heading">Заявление на прием материальной помощи</h2>
 
-        <form novalidate>
+        <form id="application-form" novalidate>
+          <p id="form-message" role="status"></p>
           <div class="form-field">
             <label for="reason">Перечень причин</label>
             <div class="input-with-icon">
@@ -84,7 +85,7 @@
                 <path d="M15 15 L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
               <select id="reason" name="reason" required>
-                <option value="" selected>Демисезонная одежда и обувь</option>
+                <option value="clothes" selected>Демисезонная одежда и обувь</option>
                 <option value="food">Питание</option>
                 <option value="medicine">Лекарства и лечение</option>
                 <option value="other">Другое</option>
@@ -99,7 +100,7 @@
                 <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
                 <path d="M4 20 C4 16 7.5 14 12 14 C16.5 14 20 16 20 20" stroke="currentColor" stroke-width="2"/>
               </svg>
-              <input type="text" id="full-name" name="full-name" placeholder="Иванов Иван Иванович" autocomplete="name" required />
+              <input type="text" id="full-name" name="fullName" placeholder="Иванов Иван Иванович" autocomplete="name" required />
             </div>
           </div>
 
@@ -182,6 +183,39 @@
           </div>
         </form>
       </section>
+      
+      <section id="success-screen" class="card success-card" hidden>
+        <div class="success-card__icon" aria-hidden="true">✓</div>
+
+        <h2>Заявление успешно отправлено!</h2>
+        <p class="success-card__lead">
+          Ваше заявление принято и ожидает рассмотрения.
+        </p>
+
+        <dl class="application-details">
+          <div>
+            <dt>Номер заявления</dt>
+            <dd id="application-number"></dd>
+          </div>
+          <div>
+            <dt>Дата отправки</dt>
+            <dd id="application-date"></dd>
+          </div>
+          <div>
+            <dt>Статус</dt>
+            <dd><span class="status-badge">На рассмотрении</span></dd>
+          </div>
+        </dl>
+
+        <div class="success-card__actions">
+          <button type="button" class="button button--secondary" id="back-to-form">
+            Вернуться к форме
+          </button>
+          <button type="button" class="button button--primary" id="new-application">
+            Новое заявление
+          </button>
+        </div>
+      </section>
     </main>
 
   </div>
@@ -204,6 +238,8 @@
       </ul>
     </nav>
   </footer>
+
+<script src="/script.js" defer></script>
 
 </body>
 </html>
